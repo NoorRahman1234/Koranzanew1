@@ -1,0 +1,240 @@
+.contact-page {
+  padding: 4rem 0 6rem;
+  background-color: var(--bg-soft);
+  min-height: 100vh;
+}
+
+.contact-header {
+  margin-bottom: 5rem;
+}
+
+.contact-main-title {
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin: 1rem 0 1.5rem;
+}
+
+.contact-subtitle {
+  font-size: 0.95rem;
+  color: #777;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* LAYOUT */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* LEFT COLUMN */
+.concierge-box {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  margin-bottom: 3rem;
+}
+
+.box-title {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.info-item {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  width: 38px;
+  height: 38px;
+  background: #FFF0F5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #BBB;
+  margin-bottom: 0.4rem;
+  display: block;
+  letter-spacing: 1px;
+}
+
+.info-text p {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.follow-glow {
+  padding-left: 0.5rem;
+}
+
+.social-pills {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.social-pill-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.social-pill-group span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #AAA;
+}
+
+.social-pill {
+  width: 45px;
+  height: 45px;
+  background: #FFE5EE;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.social-pill:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* RIGHT COLUMN: FORM */
+.contact-form-card {
+  background: white;
+  padding: 4rem;
+  border-radius: 24px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.03);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #FF8BA7;
+  margin-bottom: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.form-group input, 
+.form-group textarea,
+.custom-select {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #FFE5EE;
+  font-size: 0.95rem;
+  color: #666;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.form-group textarea {
+  background-color: #FFF0F5;
+  resize: none;
+}
+
+.custom-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23FF4D8D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.5rem center;
+  background-size: 1.2rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #FFB3C7;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: #AAA;
+}
+
+.btn-send-message {
+  padding: 1.2rem 3.5rem;
+  background-color: #FF4D8D;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 8px 20px rgba(255, 77, 141, 0.3);
+}
+
+.btn-send-message:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 77, 141, 0.4);
+}
+
+@media (max-width: 1024px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-form-card { padding: 2.5rem; }
+  .contact-main-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .form-footer { flex-direction: column; gap: 2rem; align-items: flex-start; }
+  .btn-send-message { width: 100%; }
+  .contact-header { margin-bottom: 3rem; }
+}
+
+@media (max-width: 480px) {
+  .contact-form-card { padding: 1.5rem; border-radius: 16px; }
+  .contact-main-title { font-size: 1.8rem; }
+  .contact-subtitle { font-size: 0.85rem; }
+  .concierge-box { padding: 1.5rem; }
+  .box-title { font-size: 1.2rem; }
+  .contact-page { padding: 3rem 0 4rem; }
+}

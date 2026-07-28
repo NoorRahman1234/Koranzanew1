@@ -1,0 +1,147 @@
+.checkout-page {
+  padding: var(--space-xl) 0;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.form-section h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.form-field input {
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-soft);
+  outline: none;
+  font-size: 1rem;
+}
+
+.form-field input:focus {
+  border-color: var(--primary);
+  background-color: var(--white);
+}
+
+.input-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.half {
+  flex: 1;
+}
+
+/* Sidebar */
+.order-summary-sidebar {
+  padding: 2.5rem;
+  border-radius: 40px;
+}
+
+.order-summary-sidebar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.item-img-mini {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-img-mini img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.item-name-mini {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.item-price-mini {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.summary-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.summary-total-line {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text-main);
+  padding-top: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .checkout-layout { grid-template-columns: 1fr; }
+  .order-summary-sidebar { order: -1; }
+}
+
+@media (max-width: 768px) {
+  .input-row { flex-direction: column; gap: 0; }
+  .checkout-page { padding: 2rem 0; }
+}

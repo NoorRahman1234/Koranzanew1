@@ -1,0 +1,139 @@
+.hero-static {
+  position: relative;
+  height: 95vh;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-start;
+  /* Move to top */
+  overflow: hidden;
+  background-color: white;
+}
+
+
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.9;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 103px 20px;
+}
+
+.hero-content .small-caps {
+  font-size: 0.6rem;
+  /* Even smaller */
+  letter-spacing: 1.5px;
+  margin-bottom: 0.8rem;
+  display: block;
+  font-weight: 700;
+}
+
+.hero-heading {
+  font-size: 4.5rem;
+  line-height: 1.05;
+  margin: 1rem 0;
+  color: #1A1A1A;
+  font-weight: 400;
+}
+
+.hero-heading span.text-magenta {
+  color: var(--primary);
+  display: block;
+}
+
+.hero-text {
+  font-size: 0.9rem;
+  color: #444;
+  max-width: 420px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.btn-primary {
+  padding: 1rem 3rem;
+  font-size: 0.8rem;
+  border-radius: 25px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.cont2 {
+  margin: 103px;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .hero-heading {
+    font-size: 3.2rem;
+  }
+
+  .hero-content {
+    padding-top: 7rem;
+    margin: 0 40px;
+  }
+
+  .cont2 {
+    margin: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-static {
+    height: auto;
+    min-height: 80vh;
+    padding-bottom: 3rem;
+  }
+
+  .hero-content {
+    margin: 0 20px;
+    padding-top: 5.5rem;
+    max-width: 100%;
+  }
+
+  .hero-heading {
+    font-size: 2.4rem;
+  }
+
+  .hero-text {
+    font-size: 0.85rem;
+    max-width: 100%;
+  }
+
+  .cont2 {
+    margin: 40px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: 2rem;
+  }
+
+  .hero-content {
+    padding-top: 5rem;
+  }
+}

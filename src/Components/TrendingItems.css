@@ -1,0 +1,52 @@
+.trending-container {
+  padding: 5rem 0;
+  background-color: var(--primary-soft); /* Very light pink section background */
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.2rem; 
+  font-weight: 500;
+  color: #1A1A1A;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: #757575;
+  font-weight: 400;
+  margin-top: 0.2rem;
+}
+
+.view-all {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .section-title { font-size: 1.9rem; }
+  .trending-container { padding: 3rem 0; }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 1.6rem; }
+  .section-subtitle { font-size: 0.85rem; }
+}

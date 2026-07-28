@@ -1,0 +1,52 @@
+.wishlist-page {
+  padding: 127px 0 96px; /* Top and Bottom padding from Figma */
+  background-color: #FFF9FA;
+  min-height: 100vh;
+}
+
+.wishlist-page .container {
+  max-width: 1100px; /* Reduced from 1280px for a more compact feel */
+  padding: 0 40px; /* Slightly reduced side padding */
+  margin: 0 auto;
+}
+
+.wishlist-header {
+  margin-bottom: 80px; /* Adjusted spacing */
+  text-align: center;
+}
+
+.wishlist-title {
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.wishlist-subtitle {
+  font-size: 1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px; /* Gap from Figma */
+  margin-bottom: 4rem;
+}
+
+.wishlist-footer {
+  margin-top: 3rem;
+}
+
+@media (max-width: 1024px) {
+  .wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+}
+
+@media (max-width: 600px) {
+  .wishlist-grid { grid-template-columns: 1fr; }
+  .wishlist-title { font-size: 2.2rem; }
+}
