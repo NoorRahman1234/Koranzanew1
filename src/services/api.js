@@ -109,3 +109,13 @@ export const healthCheck = async () => {
 };
 
 export default api;
+
+
+// Order API endpoints
+export const orderAPI = {
+  // Create a new order
+  create: async (orderData) => {
+    const response = await api.post('/orders', orderData);
+    return response.data;
+  },
+};

@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const ext = file.originalname.split('.').pop();
     cb(null, 'product-' + uniqueSuffix + '.' + ext);
+    
   }
 });
 
@@ -75,3 +76,29 @@ export const handleUploadError = (err, req, res, next) => {
 
   next();
 };
+
+
+// Profile Image Storage
+const profileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+
+  filename: (req, file, cb) => {
+    const uniqueSuffix =
+      Date.now() + "-" + Math.round(Math.random() * 1e9);
+
+    const ext = file.originalname.split(".").pop();
+
+    cb(null, "profile-" + uniqueSuffix + "." + ext);
+  },
+});
+
+// Profile Upload Middleware
+export const profileUpload = multer({
+  storage: profileStorage,
+  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+});

@@ -1,17 +1,37 @@
 import React, { useState } from 'react';
+import { orderAPI } from '../services/api';
 import './WhatsAppButton.css';
 
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   // WhatsApp configuration
-  const phoneNumber = '923005822788'; // WhatsApp number with Pakistan country code (92)
+  const phoneNumber = '923129432684'; // WhatsApp number with Pakistan country code (92)
   const message = 'Hello! I have a question about your products.'; // Default message
 
-  const handleClick = () => {
+  // const handleClick = () => {
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  //   window.open(whatsappUrl, '_blank');
+  // };
+
+
+
+const handleClick = async () => {
+  try {
+    await orderAPI.create({
+      customer: "Guest Customer",
+      total: 0,
+      items: [],
+    });
+
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
+    window.open(whatsappUrl, "_blank");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to save order.");
+  }
+};
+
 
   return (
     <div className="whatsapp-button-container">
