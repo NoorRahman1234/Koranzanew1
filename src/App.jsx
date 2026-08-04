@@ -130,6 +130,7 @@ export default function App() {
           <Route path="/checkout" element={<><Checkout /><Footer /></>} />
           <Route path="/notifications" element={<><Notifications /><Footer /></>} />
           <Route path="/account" element={<><AccountSettings /><Footer /></>} />
+          
         </Routes>
       </div>
     </>

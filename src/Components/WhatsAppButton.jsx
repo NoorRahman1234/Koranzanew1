@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   // WhatsApp configuration
-  const phoneNumber = '923129432684'; // WhatsApp number with Pakistan country code (92)
+  const phoneNumber = '923239221076'; // WhatsApp number with Pakistan country code (92)
   const message = 'Hello! I have a question about your products.'; // Default message
 
   // const handleClick = () => {

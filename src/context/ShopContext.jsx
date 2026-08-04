@@ -10,7 +10,8 @@ export const useShop = () => useContext(ShopContext);
 
 export const ShopProvider = ({ children }) => {
     // Products state from API, fallback to local data
-    const [products, setProducts] = useState(localProducts);
+    // const [products, setProducts] = useState(localProducts);
+    const [products, setProducts] = useState([]);
     const [productsLoading, setProductsLoading] = useState(true);
     const [productsError, setProductsError] = useState(null);
 
@@ -67,26 +68,42 @@ export const ShopProvider = ({ children }) => {
     const fetchCategories = async () => {
         try {
             const response = await productAPI.getCategories();
-            if (response.success && response.data) {
-                // Map backend fields to frontend expected fields
-                const apiCategories = response.data.map(cat => ({
-                    ...cat,
-                    name: cat.name || cat.category,
-                    img: cat.image || cat.img
-                }));
+            // if (response.success && response.data) {
+            //     // Map backend fields to frontend expected fields
+            //     const apiCategories = response.data.map(cat => ({
+            //         ...cat,
+            //         name: cat.name || cat.category,
+            //         img: cat.image || cat.img
+            //     }));
 
-                // Merge with local categories
-                setCategories(prev => {
-                    const merged = [...apiCategories];
-                    localCategories.forEach(local => {
-                        const localName = local.name || local.category;
-                        if (!merged.find(c => (c.name || c.category) === localName)) {
-                            merged.push(local);
-                        }
-                    });
-                    return merged;
-                });
-            }
+            //     // Merge with local categories
+            //     setCategories(prev => {
+            //         const merged = [...apiCategories];
+            //         localCategories.forEach(local => {
+            //             const localName = local.name || local.category;
+            //             if (!merged.find(c => (c.name || c.category) === localName)) {
+            //                 merged.push(local);
+            //             }
+            //         });
+            //         return merged;
+            //     });
+            // }
+
+
+
+if (response.success && response.data) {
+    const apiProducts = response.data.map(p => ({
+        ...p,
+        img: p.image || p.img,
+        skinType: p.skin_type || p.skinType,
+    }));
+
+    setProducts(apiProducts);
+}
+
+
+
+
         } catch (error) {
             console.error('Error fetching categories:', error);
         }
