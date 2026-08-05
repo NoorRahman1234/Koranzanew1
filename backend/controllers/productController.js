@@ -420,3 +420,5 @@ export const updateStock = async (req, res, next) => {
     next(error);
   }
 };
+
+

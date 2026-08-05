@@ -139,8 +139,8 @@ export class Product {
 
   // Get product by ID
   static async getById(id) {
-    return await ProductModel.findOne({ id: parseInt(id) });
-  }
+  return await ProductModel.findById(id);
+}
 
   // Create new product
   static async create(productData) {
@@ -154,17 +154,17 @@ export class Product {
 
   // Update product
   static async update(id, productData) {
-    return await ProductModel.findOneAndUpdate(
-      { id: parseInt(id) },
-      { $set: productData },
-      { new: true }
-    );
-  }
+  return await ProductModel.findByIdAndUpdate(
+    id,
+    productData,
+    { new: true }
+  );
+}
 
   // Delete product
   static async delete(id) {
-    return await ProductModel.findOneAndDelete({ id: parseInt(id) });
-  }
+  return await ProductModel.findByIdAndDelete(id);
+}
 
   // Get products by category
   static async getByCategory(category) {
@@ -172,13 +172,13 @@ export class Product {
   }
 
   // Update stock
-  static async updateStock(id, quantity) {
-    return await ProductModel.findOneAndUpdate(
-      { id: parseInt(id) },
-      { $set: { stock: quantity } },
-      { new: true }
-    );
-  }
+ static async updateStock(id, quantity) {
+  return await ProductModel.findByIdAndUpdate(
+    id,
+    { stock: quantity },
+    { new: true }
+  );
+}
 
   // Search products
   static async search(searchTerm) {
