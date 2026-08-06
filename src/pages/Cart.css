@@ -462,3 +462,27 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.btn-submit {
+  width: 100%;             /* Change to a fixed width like 240px if preferred */
+  height: 52px;            /* Custom height */
+  background-color: #6d28d9; /* Deep purple */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-submit:hover {
+  background-color: #5b21b6; /* Slightly darker purple on hover */
+}
+
+.btn-submit:disabled {
+  background-color: #a78bfa; /* Muted purple when loading */
+  cursor: not-allowed;
+}
