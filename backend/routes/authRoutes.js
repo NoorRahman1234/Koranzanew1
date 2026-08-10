@@ -1,7 +1,6 @@
 
 
 import express from "express";
-import { profileUpload } from "../middleware/upload.js";
 import {
   registerUser,
   loginUser,
@@ -10,25 +9,25 @@ import {
   uploadProfileImage,
   changePassword,
 } from "../controllers/authController.js";
-
-import authMiddleware from "../middleware/authMiddleware.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { profileUpload } from "../middleware/upload.js";
 
 const router = express.Router();
 
+// Static & Fixed Routes First
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
-router.get("/me", authMiddleware, getCurrentUser);
-router.delete("/delete-account", authMiddleware, deleteAccount);
+router.get("/me", protect, getCurrentUser);
+router.put("/change-password", protect, changePassword);
+// router.put("/upload-profile", protect, uploadProfileImage);
 router.put(
   "/upload-profile",
-  authMiddleware,
+  protect,
   profileUpload.single("profileImage"),
   uploadProfileImage
 );
-router.put(
-  "/change-password",
-  authMiddleware,
-  changePassword
-);
+
+// FIXED: Static delete route registered clearly
+router.delete("/delete", protect, deleteAccount);
 
 export default router;

@@ -1,13 +1,15 @@
+
+
 import bcrypt from "bcryptjs";
 import path from "path";
 import User from "../models/User.js";
+import Customer from "../models/Customer.js";
 import generateToken from "../utils/generateToken.js";
 
-// Register User
-
+// Register User & Create Customer Document
 export const registerUser = async (req, res) => {
   try {
-    const { fullName, email, password, confirmPassword } = req.body;
+    const { fullName, email, phone, password, confirmPassword } = req.body;
 
     if (!fullName || !email || !password || !confirmPassword) {
       return res.status(400).json({
@@ -33,13 +35,28 @@ export const registerUser = async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // 1. Create entry in 'users' collection
     const user = await User.create({
       fullName,
       email,
       password: hashedPassword,
+    });
+
+    // 2. Generate incremental Customer ID (C001, C002, etc.)
+    const count = await Customer.countDocuments();
+    const customerId = "C" + String(count + 1).padStart(3, "0");
+
+    // 3. Create entry in 'customers' collection
+    await Customer.create({
+      id: customerId,
+      name: fullName,
+      email: email,
+      phone: phone || "N/A",
+      status: "Active",
+      orders: 0,
+      totalSpent: 0,
     });
 
     res.status(201).json({
@@ -60,14 +77,11 @@ export const registerUser = async (req, res) => {
   }
 };
 
-
-
 // Login User
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check required fields
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -75,7 +89,6 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    // Find user
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -85,7 +98,6 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -95,7 +107,6 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    // Success
     res.status(200).json({
       success: true,
       message: "Login successful",
@@ -114,8 +125,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-
-//Get current User
+// Get Current User
 export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -131,10 +141,8 @@ export const getCurrentUser = async (req, res) => {
       success: true,
       user,
     });
-
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -142,27 +150,36 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
-
-// Delete Account or Delete User
+// Delete Account
 export const deleteAccount = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id || req.user?.id;
 
-    await User.findByIdAndDelete(userId);
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "User ID not found in request" });
+    }
 
-    res.status(200).json({
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ success: false, message: "User account not found" });
+    }
+
+    return res.status(200).json({
       success: true,
       message: "Account deleted successfully",
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Error in deleteAccount:", error);
+    return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error while deleting account",
     });
   }
 };
 
-// upload Profile image 
+
+// Upload Profile Image 
 export const uploadProfileImage = async (req, res) => {
   try {
     if (!req.file) {
@@ -210,7 +227,6 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    // Find logged in user
     const user = await User.findById(req.user._id);
 
     if (!user) {
@@ -220,11 +236,7 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    // Check current password
-    const isMatch = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
 
     if (!isMatch) {
       return res.status(400).json({
@@ -233,7 +245,6 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    // Hash new password
     const salt = await bcrypt.genSalt(10);
 
     user.password = await bcrypt.hash(newPassword, salt);

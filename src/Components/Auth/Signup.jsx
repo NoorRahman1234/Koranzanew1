@@ -1,91 +1,3 @@
-// import React from "react";
-// import AuthLayout from "./AuthLayout";
-// import { Leaf } from "lucide-react";
-
-// const SignupPage = ({ onSwitch }) => {
-//   const handleSubmit = (e) => {
-//     const [formData, setFormData] = useState({
-//       fullName: "",
-//       email: "",
-//       password: "",
-//       confirmPassword: "",
-//     });
-
-//     e.preventDefault();
-//     onSwitch();
-//   };
-
-//   return (
-//     <AuthLayout>
-//       <div className="auth-header">
-//         <div className="auth-logo-icon">
-//           <Leaf size={32} />
-//         </div>
-//         <h2 className="auth-title">Join Koreanza</h2>
-//         <p className="auth-subtitle-italic">Begin your journey to luminous skin.</p>
-//       </div>
-
-//       <form className="auth-form" onSubmit={handleSubmit}>
-//         <div className="form-group">
-//           <label className="form-label">Full Name</label>
-//           <input
-//             type="text"
-//             className="form-input"
-//             placeholder="Evelyn Rose"
-//           />
-//         </div>
-
-//         <div className="form-group">
-//           <label className="form-label">Email Address</label>
-//           <input
-//             type="email"
-//             className="form-input"
-//             placeholder="hello@ritual.com"
-//           />
-//         </div>
-
-//         <div className="form-row">
-//           <div className="form-group">
-//             <label className="form-label">Password</label>
-//             <input
-//               type="password"
-//               className="form-input"
-//               placeholder="••••••••"
-//             />
-//           </div>
-//           <div className="form-group">
-//             <label className="form-label">Confirm</label>
-//             <input
-//               type="password"
-//               className="form-input"
-//               placeholder="••••••••"
-//             />
-//           </div>
-//         </div>
-
-//         <button type="submit" className="submit-btn">Create Account</button>
-//       </form>
-
-//       <div className="auth-footer">
-//         Already have an account? <span className="auth-footer-link" onClick={onSwitch}>Sign In</span>
-//       </div>
-
-//       <div className="bottom-decoration">
-//         <div className="decor-line"></div>
-//         <span className="decor-icon">✧</span>
-//         <div className="decor-line"></div>
-//       </div>
-//     </AuthLayout>
-//   );
-// };
-
-// export default SignupPage;
-
-
-
-
-
-
 
 import React, { useState } from "react";
 import axios from "axios";
@@ -96,11 +8,11 @@ const SignupPage = ({ onSwitch }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -108,31 +20,42 @@ const SignupPage = ({ onSwitch }) => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        formData
-      );
+      const response = await axios.post("http://localhost:3000/api/auth/signup", {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      });
 
-      alert(response.data.message);
+      if (response.data.success) {
+        alert("Account created successfully!");
 
-      console.log("Signup Success:", response.data);
+        // Reset form inputs
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+        });
 
-      // Save token if returned
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+        // 1. Jump directly to login page
+        if (onSwitch) {
+          onSwitch();
+        }
       }
-
-      // Redirect to Login page
-      onSwitch();
-
     } catch (error) {
-      console.error(error);
-
+      console.error("Signup Error:", error);
       alert(
         error.response?.data?.message || "Signup failed. Please try again."
       );
@@ -154,10 +77,8 @@ const SignupPage = ({ onSwitch }) => {
       </div>
 
       <form className="auth-form" onSubmit={handleSubmit}>
-        {/* Full Name */}
         <div className="form-group">
           <label className="form-label">Full Name</label>
-
           <input
             type="text"
             name="fullName"
@@ -169,10 +90,8 @@ const SignupPage = ({ onSwitch }) => {
           />
         </div>
 
-        {/* Email */}
         <div className="form-group">
           <label className="form-label">Email Address</label>
-
           <input
             type="email"
             name="email"
@@ -184,11 +103,23 @@ const SignupPage = ({ onSwitch }) => {
           />
         </div>
 
+        {/* 2. Phone Number Input Field */}
+        <div className="form-group">
+          <label className="form-label">Phone Number</label>
+          <input
+            type="tel"
+            name="phone"
+            className="form-input"
+            placeholder="+923139884980"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div className="form-row">
-          {/* Password */}
           <div className="form-group">
             <label className="form-label">Password</label>
-
             <input
               type="password"
               name="password"
@@ -200,10 +131,8 @@ const SignupPage = ({ onSwitch }) => {
             />
           </div>
 
-          {/* Confirm Password */}
           <div className="form-group">
             <label className="form-label">Confirm</label>
-
             <input
               type="password"
               name="confirmPassword"

@@ -1,3 +1,5 @@
+
+
 import Customer from '../models/Customer.js';
 
 export const getCustomers = async (req, res) => {
@@ -12,11 +14,22 @@ export const getCustomers = async (req, res) => {
 export const createCustomer = async (req, res) => {
   try {
     const customerData = req.body;
-    // Auto-generate ID if not provided
+
+    // Safely auto-generate ID by finding the latest customer ID in DB
     if (!customerData.id) {
-      const count = await Customer.countDocuments();
-      customerData.id = 'C' + String(count + 1).padStart(3, '0');
+      const lastCustomer = await Customer.findOne().sort({ createdAt: -1 });
+      let nextNumber = 1;
+
+      if (lastCustomer && lastCustomer.id) {
+        const lastNum = parseInt(lastCustomer.id.replace(/\D/g, ""), 10);
+        if (!isNaN(lastNum)) {
+          nextNumber = lastNum + 1;
+        }
+      }
+
+      customerData.id = 'C' + String(nextNumber).padStart(3, '0');
     }
+
     const customer = await Customer.create(customerData);
     res.status(201).json({ success: true, data: customer });
   } catch (error) {
