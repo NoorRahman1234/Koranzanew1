@@ -44,9 +44,25 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    // 2. Generate incremental Customer ID (C001, C002, etc.)
-    const count = await Customer.countDocuments();
-    const customerId = "C" + String(count + 1).padStart(3, "0");
+    
+// 2. Generate a unique incremental Customer ID (C001, C002, etc.)
+const customers = await Customer.find({}, { id: 1 });
+
+let maxNumber = 0;
+
+customers.forEach((customer) => {
+  const number = parseInt(customer.id.replace(/\D/g, ""), 10);
+
+  if (!isNaN(number) && number > maxNumber) {
+    maxNumber = number;
+  }
+});
+
+const customerId = "C" + String(maxNumber + 1).padStart(3, "0");
+
+
+
+
 
     // 3. Create entry in 'customers' collection
     await Customer.create({
@@ -149,38 +165,6 @@ export const getCurrentUser = async (req, res) => {
     });
   }
 };
-
-// // Delete Account
-// export const deleteAccount = async (req, res) => {
-//   try {
-//     const userId = req.user?._id || req.user?.id;
-
-//     if (!userId) {
-//       return res.status(400).json({ success: false, message: "User ID not found in request" });
-//     }
-
-//     const deletedUser = await User.findByIdAndDelete(userId);
-
-//     if (!deletedUser) {
-//       return res.status(404).json({ success: false, message: "User account not found" });
-//     }
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "Account deleted successfully",
-//     });
-//   } catch (error) {
-//     console.error("Error in deleteAccount:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message || "Server error while deleting account",
-//     });
-//   }
-// };
-
-
-
-
 
 
 

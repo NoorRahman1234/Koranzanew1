@@ -11,6 +11,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from "./routes/authRoutes.js";
+import categoryRoutes from './routes/categoryRoutes.js';
 
 dotenv.config();
 
@@ -87,6 +88,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/orders', orderRoutes);
 app.use("/api/auth", authRoutes);
+app.use('/api/categories', categoryRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

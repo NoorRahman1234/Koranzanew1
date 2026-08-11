@@ -57,17 +57,7 @@ export const createOrder = async (req, res) => {
         { new: true }
       );
 
-      // if (updatedCustomer) {
-      //   console.log("=== CUSTOMER UPDATED SUCCESSFULLY ===", updatedCustomer);
-      // } else {
-      //   console.log("=== WARNING: NO CUSTOMER FOUND WITH THIS EMAIL ===");
-      // }
-
-
-
-
-
-
+     
 
 if (updatedCustomer) {
   console.log("=== CUSTOMER UPDATED SUCCESSFULLY ===", updatedCustomer);
