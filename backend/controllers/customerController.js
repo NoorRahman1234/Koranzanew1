@@ -11,9 +11,52 @@ export const getCustomers = async (req, res) => {
   }
 };
 
+// export const createCustomer = async (req, res) => {
+//   try {
+//     const customerData = req.body;
+
+//     // Safely auto-generate ID by finding the latest customer ID in DB
+//     if (!customerData.id) {
+//       const lastCustomer = await Customer.findOne().sort({ createdAt: -1 });
+//       let nextNumber = 1;
+
+//       if (lastCustomer && lastCustomer.id) {
+//         const lastNum = parseInt(lastCustomer.id.replace(/\D/g, ""), 10);
+//         if (!isNaN(lastNum)) {
+//           nextNumber = lastNum + 1;
+//         }
+//       }
+
+//       customerData.id = 'C' + String(nextNumber).padStart(3, '0');
+//     }
+
+//     const customer = await Customer.create(customerData);
+//     res.status(201).json({ success: true, data: customer });
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: error.message });
+//   }
+// };
+
+
+
+
+
 export const createCustomer = async (req, res) => {
   try {
     const customerData = req.body;
+
+    // Check if customer already exists with this email
+    const existingCustomer = await Customer.findOne({
+      email: customerData.email.trim().toLowerCase()
+    });
+
+    if (existingCustomer) {
+      return res.status(200).json({
+        success: true,
+        data: existingCustomer,
+        message: 'Customer already exists'
+      });
+    }
 
     // Safely auto-generate ID by finding the latest customer ID in DB
     if (!customerData.id) {
@@ -22,6 +65,7 @@ export const createCustomer = async (req, res) => {
 
       if (lastCustomer && lastCustomer.id) {
         const lastNum = parseInt(lastCustomer.id.replace(/\D/g, ""), 10);
+
         if (!isNaN(lastNum)) {
           nextNumber = lastNum + 1;
         }
@@ -31,11 +75,23 @@ export const createCustomer = async (req, res) => {
     }
 
     const customer = await Customer.create(customerData);
-    res.status(201).json({ success: true, data: customer });
+
+    res.status(201).json({
+      success: true,
+      data: customer
+    });
+
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    res.status(400).json({
+      success: false,
+      message: error.message
+    });
   }
 };
+
+
+
+
 
 export const updateCustomer = async (req, res) => {
   try {

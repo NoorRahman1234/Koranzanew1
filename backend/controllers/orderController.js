@@ -57,11 +57,45 @@ export const createOrder = async (req, res) => {
         { new: true }
       );
 
-      if (updatedCustomer) {
-        console.log("=== CUSTOMER UPDATED SUCCESSFULLY ===", updatedCustomer);
-      } else {
-        console.log("=== WARNING: NO CUSTOMER FOUND WITH THIS EMAIL ===");
-      }
+      // if (updatedCustomer) {
+      //   console.log("=== CUSTOMER UPDATED SUCCESSFULLY ===", updatedCustomer);
+      // } else {
+      //   console.log("=== WARNING: NO CUSTOMER FOUND WITH THIS EMAIL ===");
+      // }
+
+
+
+
+
+
+
+if (updatedCustomer) {
+  console.log("=== CUSTOMER UPDATED SUCCESSFULLY ===", updatedCustomer);
+} else {
+  console.log("=== NO CUSTOMER FOUND - CREATING CUSTOMER ===");
+
+  const newCustomer = await Customer.create({
+    id: 'CUST-' + Date.now().toString().slice(-6),
+    name: orderData.customer,
+    email: orderData.email.trim().toLowerCase(),
+    phone: orderData.phone || '',
+    orders: 1,
+    totalSpent: orderAmount,
+    status: 'Active'
+  });
+
+  console.log("=== NEW CUSTOMER CREATED ===", newCustomer);
+}
+
+
+
+
+
+
+
+
+
+
     } else {
       console.log("=== WARNING: NO EMAIL PROVIDED IN ORDER PAYLOAD ===");
     }

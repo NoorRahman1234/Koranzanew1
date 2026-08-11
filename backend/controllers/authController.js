@@ -150,33 +150,63 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
-// Delete Account
+// // Delete Account
+// export const deleteAccount = async (req, res) => {
+//   try {
+//     const userId = req.user?._id || req.user?.id;
+
+//     if (!userId) {
+//       return res.status(400).json({ success: false, message: "User ID not found in request" });
+//     }
+
+//     const deletedUser = await User.findByIdAndDelete(userId);
+
+//     if (!deletedUser) {
+//       return res.status(404).json({ success: false, message: "User account not found" });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "Account deleted successfully",
+//     });
+//   } catch (error) {
+//     console.error("Error in deleteAccount:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Server error while deleting account",
+//     });
+//   }
+// };
+
+
+
+
+
+
+
 export const deleteAccount = async (req, res) => {
   try {
-    const userId = req.user?._id || req.user?.id;
+    const userId = req.user._id;
 
-    if (!userId) {
-      return res.status(400).json({ success: false, message: "User ID not found in request" });
-    }
+    await User.findByIdAndDelete(userId);
 
-    const deletedUser = await User.findByIdAndDelete(userId);
-
-    if (!deletedUser) {
-      return res.status(404).json({ success: false, message: "User account not found" });
-    }
-
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Account deleted successfully",
     });
   } catch (error) {
-    console.error("Error in deleteAccount:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: error.message || "Server error while deleting account",
+      message: error.message || "Failed to delete account",
     });
   }
 };
+
+
+
+
+
+
 
 
 // Upload Profile Image 
