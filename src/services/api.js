@@ -1,6 +1,7 @@
+
+
 // import axios from 'axios';
-// import { useShop } from "../context/ShopContext";
-// import { orderAPI } from "../services/api";
+
 // // API Base URL - Use relative path for Vite proxy, or env var for production
 // const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -17,6 +18,7 @@
 //   // Get all products with optional filters
 //   getAll: async (filters = {}) => {
 //     const params = new URLSearchParams();
+
 //     if (filters.category) params.append('category', filters.category);
 //     if (filters.search) params.append('search', filters.search);
 //     if (filters.sort) params.append('sort', filters.sort);
@@ -34,13 +36,17 @@
 
 //   // Get products by category
 //   getByCategory: async (category) => {
-//     const response = await api.get(`/products/category/${encodeURIComponent(category)}`);
+//     const response = await api.get(
+//       `/products/category/${encodeURIComponent(category)}`
+//     );
 //     return response.data;
 //   },
 
 //   // Search products
 //   search: async (query) => {
-//     const response = await api.get(`/products/search?q=${encodeURIComponent(query)}`);
+//     const response = await api.get(
+//       `/products/search?q=${encodeURIComponent(query)}`
+//     );
 //     return response.data;
 //   },
 
@@ -50,14 +56,16 @@
 //     return response.data;
 //   },
 
-//   // Create product (admin)
+//   // Create product
 //   create: async (productData, imageFile) => {
 //     const formData = new FormData();
-//     Object.keys(productData).forEach(key => {
+
+//     Object.keys(productData).forEach((key) => {
 //       if (productData[key] !== null && productData[key] !== undefined) {
 //         formData.append(key, productData[key]);
 //       }
 //     });
+
 //     if (imageFile) {
 //       formData.append('image', imageFile);
 //     }
@@ -67,17 +75,20 @@
 //         'Content-Type': 'multipart/form-data',
 //       },
 //     });
+
 //     return response.data;
 //   },
 
-//   // Update product (admin)
+//   // Update product
 //   update: async (id, productData, imageFile) => {
 //     const formData = new FormData();
-//     Object.keys(productData).forEach(key => {
+
+//     Object.keys(productData).forEach((key) => {
 //       if (productData[key] !== null && productData[key] !== undefined) {
 //         formData.append(key, productData[key]);
 //       }
 //     });
+
 //     if (imageFile) {
 //       formData.append('image', imageFile);
 //     }
@@ -87,18 +98,27 @@
 //         'Content-Type': 'multipart/form-data',
 //       },
 //     });
+
 //     return response.data;
 //   },
 
-//   // Delete product (admin)
+//   // Delete product
 //   delete: async (id) => {
 //     const response = await api.delete(`/products/${id}`);
 //     return response.data;
 //   },
 
-//   // Update stock (admin)
+//   // Update stock
 //   updateStock: async (id, stock) => {
 //     const response = await api.patch(`/products/${id}/stock`, { stock });
+//     return response.data;
+//   },
+// };
+
+// // Order API
+// export const orderAPI = {
+//   create: async (orderData) => {
+//     const response = await api.post('/orders', orderData);
 //     return response.data;
 //   },
 // };
@@ -112,14 +132,17 @@
 // export default api;
 
 
-// // Order API endpoints
-// export const orderAPI = {
-//   // Create a new order
-//   create: async (orderData) => {
-//     const response = await api.post('/orders', orderData);
-//     return response.data;
-//   },
-// };
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -246,6 +269,36 @@ export const orderAPI = {
     return response.data;
   },
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Payment API
+export const paymentAPI = {
+  create: async (paymentData) => {
+    const response = await api.post('/payments', paymentData);
+    return response.data;
+  },
+
+  getAll: async () => {
+    const response = await api.get('/payments');
+    return response.data;
+  },
+};
+
+
+
+
 
 // Health check
 export const healthCheck = async () => {

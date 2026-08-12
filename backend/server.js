@@ -8,6 +8,7 @@ import { dirname, join } from 'path';
 import productRoutes from './routes/productRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from "./routes/authRoutes.js";
@@ -55,6 +56,7 @@ const limiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'GET',
 });
 
 // Middleware
@@ -87,6 +89,7 @@ app.use('/uploads', (req, res, next) => {
 app.use('/api/products', productRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use('/api/categories', categoryRoutes);
 
