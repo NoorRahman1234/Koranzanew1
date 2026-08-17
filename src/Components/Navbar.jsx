@@ -5,7 +5,9 @@ import { Search, User, Heart, ShoppingCart, Bell } from "lucide-react";
 import "./Navbar.css";
 
 import { useShop } from "../context/ShopContext";
-import logo from "../assets/Images/logo.png";
+// import logo from "../assets/Images/koranza-logo/png.png";
+import logo from "../assets/Images/koranza-logo/logo.png"
+
 
 const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -89,8 +91,11 @@ const Navbar = () => {
       />
       <div className="navbar-container">
         <Link to="/" className="nav-logo">
-          Korenza
-        </Link>
+
+      <img src={logo} alt="Korenza Logo" />
+      
+    </Link>
+
 
         <ul className={`nav-links ${mobileMenuOpen ? "active" : ""}`}>
           <li className={isActive("/") ? "active" : ""}>

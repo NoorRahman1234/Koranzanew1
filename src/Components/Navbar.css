@@ -25,11 +25,24 @@
 }
 
 /* LOGO */
-.nav-logo {
-  font-size: 1.7rem;
+/* .nav-logo { */
+  /* font-size: 1.7rem;
   font-weight: 500;
   color: #ff2f92;
   text-decoration: none;
+} */
+
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.nav-logo img {
+  height: 80px; /* Adjust this value (e.g., 30px to 50px) to match your navbar height */
+  width: auto;  /* Automatically adjusts the width to prevent image distortion */
+  object-fit: contain;
 }
 
 /* CENTER LINKS */
